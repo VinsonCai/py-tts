@@ -148,6 +148,7 @@ import axios from 'axios';
 async function generateSpeech(text) {
   const response = await axios.post('http://localhost:8000/tts', {
     text: text,
+    voice: "en-US-AriaNeural",
   }, {
     responseType: 'blob',
   });
