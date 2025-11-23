@@ -1,0 +1,21 @@
+[Unit]
+Description=TTS Service - Microsoft Edge TTS
+After=network.target
+
+[Service]
+Type=simple
+User=%i
+WorkingDirectory=/home/vinson/codes/ai/py-tts
+Environment="PATH=/home/vinson/codes/ai/py-tts/venv/bin"
+# 如果需要代理，取消下面的注释并设置代理地址
+# Environment="EDGE_TTS_PROXY=http://proxy:port"
+ExecStart=/home/vinson/codes/ai/py-tts/venv/bin/uvicorn app:app --host 0.0.0.0 --port 8000
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=py-tts
+
+[Install]
+WantedBy=multi-user.target
+

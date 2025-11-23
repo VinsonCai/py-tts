@@ -228,6 +228,32 @@ curl -X POST http://localhost:8000/tts \
 5. **如果遇到401错误**，请参考 [故障排除指南](TROUBLESHOOTING.md)
 6. 如果服务器需要通过代理访问外网，可以设置环境变量：`export EDGE_TTS_PROXY="http://proxy:port"`
 
+## 部署到后台运行
+
+要将服务打包并运行在后台，请参考 [部署指南](DEPLOYMENT.md)。
+
+### 快速部署（推荐）
+
+使用 systemd 服务方式（生产环境推荐）：
+
+```bash
+# 1. 确保依赖已安装
+./setup.sh
+
+# 2. 部署为 systemd 服务
+sudo ./deploy.sh
+```
+
+服务将自动启动并在后台运行，系统重启后会自动启动。
+
+### 其他部署方式
+
+- **Docker**: 使用 `docker-compose up -d` 或参考 [部署指南](DEPLOYMENT.md)
+- **nohup**: 适合临时运行
+- **screen/tmux**: 适合开发测试
+
+详细步骤请查看 [DEPLOYMENT.md](DEPLOYMENT.md)
+
 ## 项目结构
 
 ```
@@ -236,11 +262,16 @@ py-tts/
 ├── requirements.txt    # Python依赖包
 ├── setup.sh           # 安装脚本
 ├── start.sh           # 启动脚本
+├── deploy.sh          # 部署脚本（systemd）
+├── py-tts.service     # systemd 服务配置文件
+├── Dockerfile         # Docker 镜像构建文件
+├── docker-compose.yml # Docker Compose 配置
 ├── test_client.py     # 完整测试客户端
 ├── quick_test.py      # 快速测试脚本
 ├── test_curl.sh       # curl测试脚本
 ├── TEST_GUIDE.md      # 详细测试指南
 ├── TROUBLESHOOTING.md # 故障排除指南
+├── DEPLOYMENT.md      # 部署指南
 ├── README.md          # 本文件
 └── .gitignore         # Git忽略文件
 ```

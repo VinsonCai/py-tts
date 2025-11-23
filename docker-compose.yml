@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  py-tts:
+    build: .
+    container_name: py-tts
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    # 如果需要代理，取消下面的注释并设置代理地址
+    # environment:
+    #   - EDGE_TTS_PROXY=http://proxy:port
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    # 如果需要限制资源，取消下面的注释
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '1'
+    #       memory: 512M
+    #     reservations:
+    #       cpus: '0.5'
+    #       memory: 256M
+
